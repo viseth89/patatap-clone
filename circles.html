@@ -1,23 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="circles.css">
 
-    <script src="paper-full.min.js" charset="utf-8"></script>
-    <script type="text/paperscript" canvas="myCanvas">
-  function onKeyDown(event) {
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="circles.css">
+
+  <script src="paper-full.min.js" charset="utf-8"></script>
+  <script type="text/paperscript" canvas="myCanvas">
+    var circles = [];
+
+    function onKeyDown(event) {
     var maxPoint = new Point(view.size.width, view.size.height);
     var randomPoint = Point.random();
     var point = maxPoint * randomPoint;
+    var newCircle=new Path.Circle(point, 500)
+    newCircle.fillColor='orange';
+    //Adding circles to list of circles;
+    circles.push(newCircle);
+  }
 
-    new Path.Circle(point, 10).fillColor = 'orange';
-}
+    function onFrame(event){
+      for(var i=0; i<circles.length; i++){
+        //Changing Colors of Circles
+        circles[i].fillColor.hue +=1;
+        //Shrinking Circles
+        circles[i].scale(.9);
+      }
+    }
+
 </script>
 
-    <title></title>
-  </head>
-  <body>
-    <canvas id="myCanvas" resize></canvas>
-  </body>
+  <title></title>
+</head>
+
+<body>
+  <canvas id="myCanvas" resize></canvas>
+</body>
+
 </html>
